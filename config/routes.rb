@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get "service_requests/new"
   get "service_requests/create"
   get "service_requests/show"
