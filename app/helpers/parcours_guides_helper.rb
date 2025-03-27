@@ -1,0 +1,2 @@
+module ParcoursGuidesHelper
+end
