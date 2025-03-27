@@ -1,8 +1,8 @@
 class GuidesController < ApplicationController
-  before_action :set_guide, only: %i[show edit update destroy]
+  before_action :set_guide, only: [:show, :edit, :update, :destroy]
 
   def index
-    # Pour le manager, affichez les guides de son entreprise
+    # Pour un manager, afficher les guides de son entreprise
     @guides = current_user.manager? ? current_user.enterprise.guides : Guide.all
   end
 
