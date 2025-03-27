@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+# Your rule content
+Pour chaque demande future concernant le projet Always via Cursor.ai, je suivrai les règles génériques suivantes pour maintenir le projet de manière lean :
+
+1. **Respecter l'architecture définie** : Conserver l'architecture hexagonale et la séparation claire entre Domain, Ports et Adapters.
+2. **Utiliser une interface unifiée** : Toutes les modifications ou ajouts doivent être intégrés dans la même base de code Rails, avec des vues conditionnelles selon le rôle (Manager, User).
+3. **Garder le projet lean** : Ajouter uniquement des fonctionnalités essentielles au MVP, en gardant le code simple et modulable.
+4. **Documenter les modifications** : Chaque nouvelle demande doit être accompagnée d'une mise à jour du DevBook et de commentaires clairs dans le code.
+5. **Maintenir les conventions** : Respecter l'arborescence des dossiers et l'usage des gems recommandées pour assurer une cohérence globale du projet.
+6. **Suivre les instructions de déploiement** : S'assurer que le déploiement sur Heroku fonctionne toujours correctement, notamment avec la configuration de PostgreSQL et Active Storage.
+7. **Analyser le code existant** : Vérifier si des éléments sont déjà partiellement en place pour éviter les doublons. 
