@@ -1,46 +1,99 @@
 Rails.application.routes.draw do
-  devise_for :users
-  get "service_requests/new"
-  get "service_requests/create"
-  get "service_requests/show"
-  get "parcours_guides/create"
-  get "parcours_guides/update"
-  get "parcours_guides/destroy"
-  get "parcours/index"
-  get "parcours/show"
-  get "parcours/new"
-  get "parcours/edit"
-  get "parcours/create"
-  get "parcours/update"
-  get "parcours/destroy"
-  get "guide_feedbacks/new"
-  get "guide_feedbacks/create"
-  get "quizzes/show"
-  get "quizzes/new"
-  get "quizzes/create"
-  get "quizzes/update"
-  get "quizzes/destroy"
-  get "steps/create"
-  get "steps/update"
-  get "steps/destroy"
-  get "users/index"
-  get "users/show"
-  get "users/new"
-  get "users/edit"
-  get "users/create"
-  get "users/update"
-  get "users/destroy"
-  get "enterprises/index"
-  get "enterprises/show"
-  get "enterprises/new"
-  get "enterprises/edit"
-  get "enterprises/create"
-  get "enterprises/update"
-  get "enterprises/destroy"
-  get "guides/index"
-  get "guides/show"
-  get "guides/new"
-  get "guides/edit"
+  # Routes d'authentification Devise
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  }
+
+  # Route racine
+  root 'pages#home'
+
+  # Routes pour les guides et leurs ressources imbriquées
+  resources :guides do
+    member do
+      get 'preview'
+      get 'capture'
+      post 'publish'
+      post 'unpublish'
+    end
+
+    resources :steps, only: [:create, :update, :destroy] do
+      collection do
+        post 'reorder'
+      end
+    end
+
+    resources :quizzes, only: [:create, :update, :destroy] do
+      member do
+        post 'submit'
+      end
+    end
+
+    resources :guide_feedbacks, only: [:create, :update, :destroy]
+  end
+
+  # Routes pour les parcours
+  resources :parcours do
+    member do
+      post 'publish'
+      post 'unpublish'
+    end
+    resources :parcours_guides, only: [:create, :destroy] do
+      collection do
+        post 'reorder'
+      end
+    end
+  end
+
+  # Routes pour les demandes de prestation
+  resources :service_requests, only: [:index, :create, :show, :update] do
+    member do
+      post 'accept'
+      post 'reject'
+      post 'complete'
+    end
+  end
+
+  # Routes pour les entreprises
+  resources :enterprises, only: [:show, :edit, :update] do
+    member do
+      get 'dashboard'
+      get 'analytics'
+    end
+  end
+
+  # Routes pour les utilisateurs
+  resources :users, only: [:index, :show, :edit, :update] do
+    member do
+      get 'profile'
+      get 'guides'
+      get 'parcours'
+    end
+  end
+
+  # Routes API pour l'extension Chrome
+  namespace :api do
+    namespace :v1 do
+      resources :guides, only: [:index, :show, :create, :update] do
+        resources :steps, only: [:create, :update, :destroy]
+        resources :quizzes, only: [:create, :update, :destroy]
+        resources :guide_feedbacks, only: [:create]
+      end
+    end
+  end
+
+  # Routes pour le PWA
+  get 'manifest.json', to: 'pwa#manifest'
+  get 'service-worker.js', to: 'pwa#service_worker'
+  get 'offline.html', to: 'pwa#offline'
+
+  # Routes pour les pages statiques
+  get 'about', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
+  get 'privacy', to: 'pages#privacy'
+  get 'terms', to: 'pages#terms'
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

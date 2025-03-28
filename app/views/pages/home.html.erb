@@ -1,0 +1,96 @@
+<!-- Hero Section -->
+<div class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+  <div class="container mx-auto px-4 py-16">
+    <div class="text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6">
+        Simplifiez la formation de vos équipes
+      </h1>
+      <p class="text-xl md:text-2xl mb-8">
+        Créez et partagez des guides interactifs pour former vos collaborateurs efficacement
+      </p>
+      <div class="space-x-4">
+        <%= link_to "Créer un guide", new_guide_path, class: "bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300" %>
+        <%= link_to "Se connecter", new_user_session_path, class: "border-2 border-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats Section -->
+<div class="bg-gray-50 py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div class="bg-white p-6 rounded-lg shadow-sm">
+        <h3 class="text-3xl font-bold text-blue-600 mb-2"><%= @total_hours_saved %></h3>
+        <p class="text-gray-600">Heures économisées</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-sm">
+        <h3 class="text-3xl font-bold text-blue-600 mb-2"><%= @total_guides %></h3>
+        <p class="text-gray-600">Guides publiés</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-sm">
+        <h3 class="text-3xl font-bold text-blue-600 mb-2"><%= @total_users %></h3>
+        <p class="text-gray-600">Utilisateurs actifs</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<div class="py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Pourquoi choisir Always ?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="text-blue-600 text-4xl mb-4">🎯</div>
+        <h3 class="text-xl font-semibold mb-2">Formation ciblée</h3>
+        <p class="text-gray-600">Créez des guides adaptés à chaque poste et métier</p>
+      </div>
+      <div class="text-center">
+        <div class="text-blue-600 text-4xl mb-4">⚡</div>
+        <h3 class="text-xl font-semibold mb-2">Gain de temps</h3>
+        <p class="text-gray-600">Réduisez le temps de formation de vos équipes</p>
+      </div>
+      <div class="text-center">
+        <div class="text-blue-600 text-4xl mb-4">📊</div>
+        <h3 class="text-xl font-semibold mb-2">Suivi des progrès</h3>
+        <p class="text-gray-600">Mesurez l'efficacité de vos formations</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials Section -->
+<div class="bg-gray-50 py-16">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">Ce qu'en disent nos utilisateurs</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <% @latest_feedbacks.each do |feedback| %>
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <div class="flex items-center mb-4">
+            <div class="text-yellow-400">★</div>
+            <div class="text-yellow-400">★</div>
+            <div class="text-yellow-400">★</div>
+            <div class="text-yellow-400">★</div>
+            <div class="text-yellow-400">★</div>
+          </div>
+          <p class="text-gray-600 mb-4"><%= feedback.comment %></p>
+          <p class="text-sm text-gray-500">
+            <%= feedback.guide.title %> - <%= feedback.time_saved %>h économisées
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- CTA Section -->
+<div class="py-16">
+  <div class="container mx-auto px-4 text-center">
+    <h2 class="text-3xl font-bold mb-6">Prêt à transformer votre formation ?</h2>
+    <p class="text-xl text-gray-600 mb-8">
+      Rejoignez les entreprises qui utilisent Already pour former leurs équipes
+    </p>
+    <%= link_to "Commencer gratuitement", new_user_registration_path, class: "bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300" %>
+  </div>
+</div> 
