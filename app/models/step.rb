@@ -3,6 +3,7 @@ class Step < ApplicationRecord
 
   validates :instruction_text, presence: true
   validates :step_order, presence: true
-
-  # step_order : permet de connaître l'ordre d'apparition de l'étape
+  validates :screenshot_url, presence: true
+  validates :visual_indicator, presence: true
+  validates :description, presence: true
 end

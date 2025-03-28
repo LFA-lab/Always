@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_135214) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_27_144752) do
   create_table "answers", force: :cascade do |t|
     t.integer "question_id", null: false
     t.string "text"
@@ -99,6 +99,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_135214) do
     t.string "screenshot_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "visual_indicator"
+    t.text "description"
+    t.text "additional_text"
     t.index ["guide_id"], name: "index_steps_on_guide_id"
   end
 
