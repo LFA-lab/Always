@@ -9,7 +9,7 @@
         Créez et partagez des guides interactifs pour former vos collaborateurs efficacement
       </p>
       <div class="space-x-4">
-        <%= link_to "Créer un guide", new_guide_path, class: "bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300" %>
+        <%= link_to "Créer un compte", new_user_registration_path, class: "bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300" %>
         <%= link_to "Se connecter", new_user_session_path, class: "border-2 border-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300" %>
       </div>
     </div>
@@ -91,6 +91,9 @@
     <p class="text-xl text-gray-600 mb-8">
       Rejoignez les entreprises qui utilisent Already pour former leurs équipes
     </p>
-    <%= link_to "Commencer gratuitement", new_user_registration_path, class: "bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300" %>
+    <div class="space-x-4">
+      <%= link_to "Créer un compte", new_user_registration_path, class: "bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300" %>
+      <%= link_to "En savoir plus", "#features", class: "border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition duration-300" %>
+    </div>
   </div>
 </div> 

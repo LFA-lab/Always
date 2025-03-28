@@ -1,5 +1,7 @@
 class EnterprisesController < ApplicationController
-  before_action :set_enterprise, only: [:show, :edit, :update, :destroy]
+  before_action :set_enterprise, only: [:show, :edit, :update, :destroy, :dashboard]
+  before_action :authenticate_user!
+  before_action :ensure_manager, only: [:dashboard]
 
   def index
     @enterprises = Enterprise.all
@@ -37,6 +39,17 @@ class EnterprisesController < ApplicationController
     redirect_to enterprises_url, notice: "Entreprise supprimée."
   end
 
+  def dashboard
+    @users = @enterprise.users
+    @guides = @enterprise.guides
+    @parcours = @enterprise.parcours
+    @total_users = @users.count
+    @total_guides = @guides.count
+    @total_parcours = @parcours.count
+    @recent_guides = @guides.order(created_at: :desc).limit(5)
+    @recent_users = @users.order(created_at: :desc).limit(5)
+  end
+
   private
 
   def set_enterprise
@@ -44,6 +57,12 @@ class EnterprisesController < ApplicationController
   end
 
   def enterprise_params
-    params.require(:enterprise).permit(:name, :address)
+    params.require(:enterprise).permit(:name, :address, :phone)
+  end
+
+  def ensure_manager
+    unless current_user.manager? && current_user.enterprise == @enterprise
+      redirect_to root_path, alert: "Vous n'avez pas accès à cette page."
+    end
   end
 end

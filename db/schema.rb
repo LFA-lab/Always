@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_144752) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_28_112502) do
   create_table "answers", force: :cascade do |t|
     t.integer "question_id", null: false
     t.string "text"
@@ -34,6 +34,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_144752) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "time_saved", default: 0
     t.index ["guide_id"], name: "index_guide_feedbacks_on_guide_id"
     t.index ["user_id"], name: "index_guide_feedbacks_on_user_id"
   end
@@ -54,8 +55,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_144752) do
   create_table "parcours", force: :cascade do |t|
     t.string "title"
     t.text "description"
+    t.integer "enterprise_id", null: false
+    t.integer "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["enterprise_id"], name: "index_parcours_on_enterprise_id"
+    t.index ["owner_id"], name: "index_parcours_on_owner_id"
   end
 
   create_table "parcours_guides", force: :cascade do |t|
@@ -115,6 +120,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_144752) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "service"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["enterprise_id"], name: "index_users_on_enterprise_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -124,7 +132,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_144752) do
   add_foreign_key "guide_feedbacks", "guides"
   add_foreign_key "guide_feedbacks", "users"
   add_foreign_key "guides", "enterprises"
-  add_foreign_key "guides", "owners"
+  add_foreign_key "guides", "users", column: "owner_id"
+  add_foreign_key "parcours", "enterprises"
+  add_foreign_key "parcours", "users", column: "owner_id"
   add_foreign_key "parcours_guides", "guides"
   add_foreign_key "parcours_guides", "parcours", column: "parcours_id"
   add_foreign_key "questions", "quizzes"
