@@ -16,7 +16,3 @@ production:
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV['DATABASE_URL'] %>
-
-cable:
-  adapter: async
-  channel_prefix: always_production
