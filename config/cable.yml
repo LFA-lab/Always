@@ -9,7 +9,8 @@ test:
   adapter: test
 
 production:
-  adapter: solid_cable
+  adapter: async
+  channel_prefix: always_production
   connects_to:
     database:
       writing: cable
