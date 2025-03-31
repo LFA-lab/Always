@@ -32,7 +32,6 @@ gem "rack-cors"
 
 # Redis for caching and job processing
 gem "redis"
-gem "redis-rails"
 gem "sidekiq"
 
 # Reduces boot times through caching; required in config/boot.rb
