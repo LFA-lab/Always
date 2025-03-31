@@ -7,7 +7,7 @@ class Interaction < ApplicationRecord
   validates :element_selector, presence: true
   validates :timestamp, presence: true
 
-  serialize :metadata, JSON
+  serialize :metadata, coder: JSON
 
   scope :recent, -> { order(created_at: :desc) }
   scope :by_guide, ->(guide_id) { where(guide_id: guide_id) }
