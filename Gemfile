@@ -29,6 +29,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "rack-cors"
 
 # Redis for caching and job processing
+gem "redis"
 gem "redis-rails"
 gem "sidekiq"
 
