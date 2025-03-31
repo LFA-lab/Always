@@ -69,7 +69,6 @@ group :test do
 end
 
 gem "devise"
-gem 'pg'
 
 gem "jwt", "~> 2.10"
 gem "aws-sdk-s3", require: false
