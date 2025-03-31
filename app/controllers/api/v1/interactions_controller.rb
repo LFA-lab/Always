@@ -1,9 +1,6 @@
 module Api
   module V1
-    class InteractionsController < ApplicationController
-      skip_before_action :verify_authenticity_token
-      skip_before_action :authenticate_user!
-
+    class InteractionsController < BaseController
       def create
         Rails.logger.info "📥 Requête POST /api/v1/interactions"
         Rails.logger.info "📝 Données reçues: #{params.inspect}"
