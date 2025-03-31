@@ -1,0 +1,129 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Dashboard Manager</h1>
+    <div class="space-x-4">
+      <a href="chrome-extension://khckgdbjcmllimpeodcglkhanjngalbp/popup.html" class="btn btn-primary" onclick="openExtension(event)">
+        <i class="fas fa-plus mr-2"></i>Nouveau Guide
+      </a>
+      <%= link_to new_service_request_path, class: "btn btn-secondary" do %>
+        <i class="fas fa-tools mr-2"></i>Demande de Prestation
+      <% end %>
+    </div>
+  </div>
+
+  <script>
+    function openExtension(event) {
+      event.preventDefault();
+      const extensionUrl = 'chrome-extension://khckgdbjcmllimpeodcglkhanjngalbp/popup.html';
+      
+      // Vérifier si l'extension est installée
+      fetch(extensionUrl)
+        .then(response => {
+          if (response.ok) {
+            // Envoyer les informations de l'utilisateur à l'extension
+            const userData = {
+              id: <%= current_user.id %>,
+              email: '<%= current_user.email %>',
+              role: '<%= current_user.role %>',
+              enterprise_id: <%= current_user.enterprise_id %>
+            };
+            
+            // Stocker les données de l'utilisateur dans le localStorage
+            localStorage.setItem('hyperion_user_data', JSON.stringify(userData));
+            
+            // Ouvrir l'extension
+            window.location.href = extensionUrl;
+          } else {
+            alert("L'extension n'est pas installée. Veuillez l'installer.");
+          }
+        })
+        .catch(() => {
+          alert("L'extension n'est pas installée. Veuillez l'installer.");
+        });
+    }
+  </script>
+
+  <!-- Statistiques -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-gray-500 text-sm font-medium">Total Guides</h3>
+      <p class="text-3xl font-bold text-gray-900"><%= @total_guides %></p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-gray-500 text-sm font-medium">Total Étapes</h3>
+      <p class="text-3xl font-bold text-gray-900"><%= @total_steps %></p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-gray-500 text-sm font-medium">Total Feedback</h3>
+      <p class="text-3xl font-bold text-gray-900"><%= @total_feedbacks %></p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-gray-500 text-sm font-medium">Note Moyenne</h3>
+      <p class="text-3xl font-bold text-gray-900">
+        <%= number_with_precision(@average_rating, precision: 1) || "N/A" %>
+      </p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Guides Récents -->
+    <div class="bg-white rounded-lg shadow">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Guides Récents</h2>
+      </div>
+      <div class="p-6">
+        <% if @recent_guides.any? %>
+          <div class="space-y-4">
+            <% @recent_guides.each do |guide| %>
+              <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div>
+                  <h3 class="font-medium text-gray-900"><%= guide.title %></h3>
+                  <p class="text-sm text-gray-500">
+                    <%= pluralize(guide.steps.count, 'étape') %> • 
+                    <%= guide.created_at.strftime("%d/%m/%Y") %>
+                  </p>
+                </div>
+                <%= link_to guide_path(guide), class: "btn btn-sm btn-outline" do %>
+                  Voir
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-gray-500 text-center py-4">Aucun guide récent</p>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Feedback Récents -->
+    <div class="bg-white rounded-lg shadow">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Feedback Récents</h2>
+      </div>
+      <div class="p-6">
+        <% if @recent_feedbacks.any? %>
+          <div class="space-y-4">
+            <% @recent_feedbacks.each do |feedback| %>
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="font-medium text-gray-900"><%= feedback.guide.title %></h3>
+                  <div class="flex items-center">
+                    <% feedback.stars.times do %>
+                      <i class="fas fa-star text-yellow-400"></i>
+                    <% end %>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600"><%= feedback.comment %></p>
+                <p class="text-xs text-gray-500 mt-2">
+                  <%= feedback.created_at.strftime("%d/%m/%Y") %>
+                </p>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-gray-500 text-center py-4">Aucun feedback récent</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 

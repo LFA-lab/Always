@@ -1,2 +1,41 @@
-<h1>ServiceRequests#new</h1>
-<p>Find me in app/views/service_requests/new.html.erb</p>
+<div class="container mx-auto px-4 py-8">
+  <div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h1 class="text-2xl font-bold text-gray-900 mb-6">Nouvelle Demande de Prestation</h1>
+
+      <%= form_with(model: @service_request, local: true) do |f| %>
+        <% if @service_request.errors.any? %>
+          <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <i class="fas fa-exclamation-circle text-red-400"></i>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-red-800">
+                  <%= pluralize(@service_request.errors.count, "erreur") %> à corriger :
+                </h3>
+                <div class="mt-2 text-sm text-red-700">
+                  <ul class="list-disc pl-5 space-y-1">
+                    <% @service_request.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="mb-6">
+          <%= f.label :description, "Description de votre demande", class: "block text-sm font-medium text-gray-700 mb-2" %>
+          <%= f.text_area :description, rows: 5, class: "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm", placeholder: "Décrivez en détail votre demande de prestation..." %>
+        </div>
+
+        <div class="flex justify-end space-x-4">
+          <%= link_to "Annuler", dashboard_manager_path, class: "btn btn-secondary" %>
+          <%= f.submit "Envoyer la demande", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

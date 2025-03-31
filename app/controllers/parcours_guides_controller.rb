@@ -1,49 +1,34 @@
-class ParcoursController < ApplicationController
-  before_action :set_parcours, only: [:show, :edit, :update, :destroy]
+class ParcoursGuidesController < ApplicationController
+  before_action :set_parcours, only: [:index, :create, :destroy]
+  before_action :set_guide, only: [:destroy]
 
   def index
-    @parcours = Parcours.all
-  end
-
-  def show
-  end
-
-  def new
-    @parcours = Parcours.new
+    @guides = @parcours.guides
   end
 
   def create
-    @parcours = Parcours.new(parcours_params)
+    @guide = Guide.find(params[:guide_id])
+    @parcours.guides << @guide
+    
     if @parcours.save
-      redirect_to @parcours, notice: "Parcours créé avec succès."
+      redirect_to @parcours, notice: "Guide ajouté au parcours avec succès."
     else
-      render :new
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    if @parcours.update(parcours_params)
-      redirect_to @parcours, notice: "Parcours mis à jour avec succès."
-    else
-      render :edit
+      redirect_to @parcours, alert: "Erreur lors de l'ajout du guide au parcours."
     end
   end
 
   def destroy
-    @parcours.destroy
-    redirect_to parcours_index_path, notice: "Parcours supprimé."
+    @parcours.guides.delete(@guide)
+    redirect_to @parcours, notice: "Guide retiré du parcours avec succès."
   end
 
   private
 
   def set_parcours
-    @parcours = Parcours.find(params[:id])
+    @parcours = Parcours.find(params[:parcours_id])
   end
 
-  def parcours_params
-    params.require(:parcours).permit(:title, :description)
+  def set_guide
+    @guide = Guide.find(params[:id])
   end
 end

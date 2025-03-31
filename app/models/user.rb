@@ -16,5 +16,11 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :service, presence: true
   validates :enterprise_id, presence: true, unless: :manager?
-  validates :role, presence: true
+
+  def generate_jwt
+    JWT.encode(
+      { user_id: id, exp: 24.hours.from_now.to_i },
+      Rails.application.credentials.secret_key_base
+    )
+  end
 end

@@ -5,7 +5,7 @@ class CreateGuides < ActiveRecord::Migration[8.0]
       t.text :description
       t.integer :visibility
       t.string :slug
-      t.references :owner, null: false, foreign_key: true
+      t.references :owner, null: false, foreign_key: { to_table: :users }
       t.references :enterprise, null: false, foreign_key: true
 
       t.timestamps

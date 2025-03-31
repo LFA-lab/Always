@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   # Route racine
   root 'pages#home'
 
+  # Routes pour les dashboards
+  get 'dashboard/manager', to: 'pages#dashboard_manager', as: :dashboard_manager
+  get 'dashboard/user', to: 'pages#dashboard_user', as: :dashboard_user
+
   # Routes pour les guides et leurs ressources imbriquées
   resources :guides do
     member do
@@ -47,7 +51,7 @@ Rails.application.routes.draw do
   end
 
   # Routes pour les demandes de prestation
-  resources :service_requests, only: [:index, :create, :show, :update] do
+  resources :service_requests, only: [:index, :new, :create, :show, :update] do
     member do
       post 'accept'
       post 'reject'
@@ -75,11 +79,21 @@ Rails.application.routes.draw do
   # Routes API pour l'extension Chrome
   namespace :api do
     namespace :v1 do
-      resources :guides, only: [:index, :show, :create, :update] do
+      # Authentification
+      post 'auth/login', to: 'auth#login'
+
+      # Guides
+      resources :guides, only: [:index, :show, :create, :update, :destroy] do
+        member do
+          post 'capture'
+        end
         resources :steps, only: [:create, :update, :destroy]
         resources :quizzes, only: [:create, :update, :destroy]
         resources :guide_feedbacks, only: [:create]
       end
+
+      # Interactions
+      resources :interactions, only: [:index, :create]
     end
   end
 
@@ -93,6 +107,7 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact'
   get 'privacy', to: 'pages#privacy'
   get 'terms', to: 'pages#terms'
+  get 'privacy-policy', to: 'pages#privacy_policy'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

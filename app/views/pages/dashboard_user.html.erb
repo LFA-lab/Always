@@ -1,0 +1,113 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Mon Dashboard</h1>
+    <div class="text-sm text-gray-500">
+      <%= current_user.first_name %> <%= current_user.last_name %>
+    </div>
+  </div>
+
+  <!-- Progression -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-gray-500 text-sm font-medium">Guides Assignés</h3>
+      <p class="text-3xl font-bold text-gray-900"><%= @assigned_guides.count %></p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-gray-500 text-sm font-medium">Guides Complétés</h3>
+      <p class="text-3xl font-bold text-gray-900"><%= @completed_guides.count %></p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+      <h3 class="text-gray-500 text-sm font-medium">En Cours</h3>
+      <p class="text-3xl font-bold text-gray-900"><%= @in_progress_guides.count %></p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <!-- Guides en Cours -->
+    <div class="bg-white rounded-lg shadow">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Guides en Cours</h2>
+      </div>
+      <div class="p-6">
+        <% if @in_progress_guides.any? %>
+          <div class="space-y-4">
+            <% @in_progress_guides.each do |guide| %>
+              <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div>
+                  <h3 class="font-medium text-gray-900"><%= guide.title %></h3>
+                  <p class="text-sm text-gray-500">
+                    <%= pluralize(guide.steps.count, 'étape') %>
+                  </p>
+                </div>
+                <%= link_to guide_path(guide), class: "btn btn-sm btn-primary" do %>
+                  Continuer
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-gray-500 text-center py-4">Aucun guide en cours</p>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Activité Récente -->
+    <div class="bg-white rounded-lg shadow">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Activité Récente</h2>
+      </div>
+      <div class="p-6">
+        <% if @recent_activity.any? %>
+          <div class="space-y-4">
+            <% @recent_activity.each do |feedback| %>
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="font-medium text-gray-900"><%= feedback.guide.title %></h3>
+                  <div class="flex items-center">
+                    <% feedback.stars.times do %>
+                      <i class="fas fa-star text-yellow-400"></i>
+                    <% end %>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600"><%= feedback.comment %></p>
+                <p class="text-xs text-gray-500 mt-2">
+                  <%= feedback.created_at.strftime("%d/%m/%Y") %>
+                </p>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-gray-500 text-center py-4">Aucune activité récente</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guides Complétés -->
+  <div class="mt-8">
+    <div class="bg-white rounded-lg shadow">
+      <div class="p-6 border-b border-gray-200">
+        <h2 class="text-xl font-semibold text-gray-900">Guides Complétés</h2>
+      </div>
+      <div class="p-6">
+        <% if @completed_guides.any? %>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <% @completed_guides.each do |guide| %>
+              <div class="p-4 bg-gray-50 rounded-lg">
+                <h3 class="font-medium text-gray-900 mb-2"><%= guide.title %></h3>
+                <p class="text-sm text-gray-500 mb-4">
+                  <%= pluralize(guide.steps.count, 'étape') %>
+                </p>
+                <%= link_to guide_path(guide), class: "btn btn-sm btn-outline w-full" do %>
+                  Revoir
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-gray-500 text-center py-4">Aucun guide complété</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 

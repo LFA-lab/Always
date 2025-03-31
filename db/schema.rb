@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_28_112502) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "answers", force: :cascade do |t|
     t.integer "question_id", null: false
     t.string "text"
@@ -52,13 +80,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_28_112502) do
     t.index ["owner_id"], name: "index_guides_on_owner_id"
   end
 
+  create_table "interactions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "guide_id"
+    t.string "action_type", null: false
+    t.string "element_type", null: false
+    t.string "element_selector", null: false
+    t.text "element_text"
+    t.string "screenshot_url"
+    t.datetime "timestamp", null: false
+    t.json "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guide_id", "created_at"], name: "index_interactions_on_guide_id_and_created_at"
+    t.index ["guide_id"], name: "index_interactions_on_guide_id"
+    t.index ["user_id", "created_at"], name: "index_interactions_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_interactions_on_user_id"
+  end
+
   create_table "parcours", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.integer "enterprise_id", null: false
-    t.integer "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "owner_id", null: false
+    t.integer "enterprise_id", null: false
     t.index ["enterprise_id"], name: "index_parcours_on_enterprise_id"
     t.index ["owner_id"], name: "index_parcours_on_owner_id"
   end
@@ -104,10 +150,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_28_112502) do
     t.string "screenshot_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "element_selector"
+    t.string "element_type"
+    t.text "element_text"
+    t.json "coordinates"
+    t.json "scroll_position"
+    t.datetime "timestamp"
+    t.json "browser_info"
+    t.json "device_info"
     t.string "visual_indicator"
     t.text "description"
     t.text "additional_text"
+    t.index ["element_type"], name: "index_steps_on_element_type"
     t.index ["guide_id"], name: "index_steps_on_guide_id"
+    t.index ["timestamp"], name: "index_steps_on_timestamp"
   end
 
   create_table "users", force: :cascade do |t|
@@ -128,11 +184,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_28_112502) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "questions"
   add_foreign_key "guide_feedbacks", "guides"
   add_foreign_key "guide_feedbacks", "users"
   add_foreign_key "guides", "enterprises"
   add_foreign_key "guides", "users", column: "owner_id"
+  add_foreign_key "interactions", "guides"
+  add_foreign_key "interactions", "users"
   add_foreign_key "parcours", "enterprises"
   add_foreign_key "parcours", "users", column: "owner_id"
   add_foreign_key "parcours_guides", "guides"

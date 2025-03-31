@@ -10,7 +10,9 @@
 
 # Nettoyage de la base de données
 puts "Nettoyage de la base de données..."
-[Answer, Question, Quiz, GuideFeedback, ParcoursGuide, Step, Guide, ServiceRequest, Parcours, User, Enterprise].each(&:delete_all)
+ActiveRecord::Base.connection.disable_referential_integrity do
+  [Answer, Question, Quiz, GuideFeedback, ParcoursGuide, Step, Guide, ServiceRequest, Parcours, User, Enterprise].each(&:delete_all)
+end
 
 # Création des entreprises
 puts "Création des entreprises..."
@@ -108,8 +110,10 @@ Step.create!(
   instruction_text: "Installation de Git",
   description: "1. Téléchargez Git depuis git-scm.com\n2. Installez Git sur votre machine\n3. Configurez votre identité Git",
   step_order: 1,
-  screenshot_url: "https://example.com/git-installation.png",
-  visual_indicator: "click"
+  visual_indicator: "click",
+  element_selector: "#download-button",
+  element_type: "button",
+  timestamp: Time.current
 )
 
 Step.create!(
@@ -117,8 +121,10 @@ Step.create!(
   instruction_text: "Premiers commandes Git",
   description: "1. git init\n2. git add\n3. git commit\n4. git push",
   step_order: 2,
-  screenshot_url: "https://example.com/git-commands.png",
-  visual_indicator: "click"
+  visual_indicator: "click",
+  element_selector: "#terminal",
+  element_type: "div",
+  timestamp: Time.current
 )
 
 # Quiz pour le guide Git
@@ -171,7 +177,10 @@ Step.create!(
   description: "1. Cohérence visuelle\n2. Hiérarchie visuelle\n3. Feedback utilisateur",
   step_order: 1,
   screenshot_url: "https://example.com/ui-principles.png",
-  visual_indicator: "click"
+  visual_indicator: "click",
+  element_selector: "#principles",
+  element_type: "div",
+  timestamp: Time.current
 )
 
 Step.create!(
@@ -180,7 +189,10 @@ Step.create!(
   description: "1. Figma\n2. Adobe XD\n3. Sketch",
   step_order: 2,
   screenshot_url: "https://example.com/design-tools.png",
-  visual_indicator: "click"
+  visual_indicator: "click",
+  element_selector: "#tools",
+  element_type: "div",
+  timestamp: Time.current
 )
 
 # Quiz pour le guide UI/UX
@@ -223,8 +235,8 @@ puts "Création des parcours..."
 parcours1 = Parcours.create!(
   title: "Formation Développeur",
   description: "Parcours complet pour devenir développeur",
-  enterprise_id: enterprise1.id,
-  owner_id: manager1.id
+  enterprise: enterprise1,
+  owner: manager1
 )
 
 ParcoursGuide.create!(
@@ -236,8 +248,8 @@ ParcoursGuide.create!(
 parcours2 = Parcours.create!(
   title: "Formation Design",
   description: "Parcours complet pour devenir designer",
-  enterprise_id: enterprise2.id,
-  owner_id: manager2.id
+  enterprise: enterprise2,
+  owner: manager2
 )
 
 ParcoursGuide.create!(

@@ -6,7 +6,8 @@ let isPaused = false;
 let isSaving = false;
 
 // Configuration
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'http://localhost:3000/api/v1';
+console.log('🔧 Configuration API:', API_URL);
 
 // Initialisation des éléments DOM
 let startButton, pauseButton, saveButton, stepsContainer, notification;
@@ -66,6 +67,7 @@ function handleSaveClick(event) {
     
     // Désactiver le bouton immédiatement
     if (saveButton) {
+        console.log('🔒 Désactivation du bouton de sauvegarde');
         saveButton.disabled = true;
         saveButton.innerHTML = '<span class="loading"></span> Sauvegarde en cours...';
     }
@@ -77,6 +79,7 @@ function handleSaveClick(event) {
         
         // Réactiver le bouton en cas d'erreur
         if (saveButton) {
+            console.log('🔓 Réactivation du bouton de sauvegarde');
             saveButton.disabled = false;
             saveButton.innerHTML = '<span class="icon">💾</span> Sauvegarder le Guide';
         }
@@ -133,6 +136,7 @@ async function saveGuide() {
     
     try {
         isSaving = true;
+        console.log('📝 Préparation des données du guide...');
         
         // Arrêter la capture si elle est en cours
         if (isRecording) {
@@ -145,34 +149,53 @@ async function saveGuide() {
         
         // Préparer les données du guide
         const guideData = {
-            title: `Guide capturé le ${new Date().toLocaleString()}`,
+            guide: {
+                title: `Guide capturé le ${new Date().toLocaleString()}`,
+                description: "Guide créé via l'extension Chrome",
+                visibility: "private_guide",
+                url: window.location.href,
+                browser_info: navigator.userAgent,
+                device_info: `${navigator.platform} - ${navigator.language}`
+            },
             steps: steps.map((step, index) => ({
-                ...step,
-                order: index + 1,
-                description: step.description || ''
+                description: step.description || '',
+                type: step.type || 'click',
+                element_selector: step.element_selector || '',
+                element_type: step.element_type || '',
+                element_text: step.element_text || '',
+                coordinates: step.coordinates || { x: 0, y: 0 },
+                scroll_position: step.scroll_position || 0,
+                timestamp: step.timestamp || new Date().toISOString(),
+                order: index + 1
             }))
         };
         
-        console.log('📤 Envoi des données au serveur...', guideData);
+        console.log('📤 Envoi des données au serveur:', guideData);
         
         // Envoyer les données au serveur
-        const response = await fetch(`${API_URL}/guides`, {
+        const response = await fetch(`${API_URL}/interactions`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify(guideData)
         });
         
+        console.log('📥 Réponse du serveur:', response.status, response.statusText);
+        
         if (!response.ok) {
-            throw new Error(`Erreur HTTP: ${response.status}`);
+            const errorText = await response.text();
+            console.error('❌ Erreur serveur:', errorText);
+            throw new Error(`Erreur HTTP: ${response.status} - ${errorText}`);
         }
         
         const result = await response.json();
-        console.log('✅ Guide sauvegardé avec succès, ID:', result.id);
+        console.log('✅ Guide sauvegardé avec succès:', result);
         
         // Ouvrir l'éditeur dans un nouvel onglet
-        const editorUrl = `${API_URL.replace('/api', '')}/guides/${result.id}/edit`;
+        const editorUrl = `${API_URL.replace('/api/v1', '')}/guides/${result.guide.id}/edit`;
         console.log('🔗 Ouverture de l\'éditeur:', editorUrl);
         
         // Utiliser chrome.tabs.create de manière synchrone
@@ -194,9 +217,14 @@ async function saveGuide() {
         
     } catch (error) {
         console.error('❌ Erreur lors de la sauvegarde:', error);
-        throw error; // Propager l'erreur pour la gestion dans handleSaveClick
+        showNotification(`Erreur lors de la sauvegarde: ${error.message}`, true);
+        throw error;
     } finally {
         isSaving = false;
+        if (saveButton) {
+            saveButton.disabled = false;
+            saveButton.innerHTML = '<span class="icon">💾</span> Sauvegarder le Guide';
+        }
     }
 }
 
