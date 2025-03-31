@@ -15,8 +15,8 @@ Gem::Specification.new do |s|
   s.files = ["bin/jmespath.rb".freeze]
   s.homepage = "http://github.com/trevorrowe/jmespath.rb".freeze
   s.licenses = ["Apache-2.0".freeze]
-  s.rubygems_version = "3.4.20".freeze
+  s.rubygems_version = "3.4.19".freeze
   s.summary = "JMESPath - Ruby Edition".freeze
 
-  s.installed_by_version = "3.4.20" if s.respond_to? :installed_by_version
+  s.installed_by_version = "3.4.19" if s.respond_to? :installed_by_version
 end

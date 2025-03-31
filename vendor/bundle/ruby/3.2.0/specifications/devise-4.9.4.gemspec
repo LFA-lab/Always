@@ -16,10 +16,10 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT".freeze]
   s.post_install_message = "\n[DEVISE] Please review the [changelog] and [upgrade guide] for more info on Hotwire / Turbo integration.\n\n  [changelog] https://github.com/heartcombo/devise/blob/main/CHANGELOG.md\n  [upgrade guide] https://github.com/heartcombo/devise/wiki/How-To:-Upgrade-to-Devise-4.9.0-%5BHotwire-Turbo-integration%5D\n  ".freeze
   s.required_ruby_version = Gem::Requirement.new(">= 2.1.0".freeze)
-  s.rubygems_version = "3.4.20".freeze
+  s.rubygems_version = "3.4.19".freeze
   s.summary = "Flexible authentication solution for Rails with Warden".freeze
 
-  s.installed_by_version = "3.4.20" if s.respond_to? :installed_by_version
+  s.installed_by_version = "3.4.19" if s.respond_to? :installed_by_version
 
   s.specification_version = 4
 
