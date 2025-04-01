@@ -1,13 +1,11 @@
 Rails.application.routes.draw do
   # Routes publiques
-  scope module: 'pages' do
-    get 'about', to: 'pages#about'
-    get 'contact', to: 'pages#contact'
-    get 'privacy', to: 'pages#privacy'
-    get 'terms', to: 'pages#terms'
-    get 'privacy-policy', to: 'pages#privacy_policy'
-    root to: 'pages#home'
-  end
+  get 'about', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
+  get 'privacy', to: 'pages#privacy'
+  get 'terms', to: 'pages#terms'
+  get 'privacy-policy', to: 'pages#privacy_policy'
+  root to: 'pages#home'
 
   # Routes d'authentification Devise
   devise_for :users, controllers: {
