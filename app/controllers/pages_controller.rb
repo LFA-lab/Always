@@ -16,6 +16,10 @@ class PagesController < ApplicationController
   end
 
   def privacy_policy
+    Rails.logger.info "PagesController#privacy_policy called"
+    Rails.logger.info "params: #{params.inspect}"
+    Rails.logger.info "skip_authentication?: #{skip_authentication?}"
+    Rails.logger.info "public_page?: #{public_page?}"
   end
 
   def home
