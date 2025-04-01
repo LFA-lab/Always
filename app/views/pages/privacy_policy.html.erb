@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Politique de Confidentialité - Hyperion Guide Capture</title>
+    <title>Politique de Confidentialité - Always</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -27,81 +27,120 @@
     </style>
 </head>
 <body>
-    <h1>Politique de Confidentialité - Hyperion Guide Capture</h1>
-    
-    <div class="section">
-        <h2>Introduction</h2>
-        <p>Hyperion Guide Capture est une extension Chrome conçue pour faciliter la création de guides interactifs. Nous nous engageons à protéger votre vie privée et à garantir la sécurité de vos données.</p>
-    </div>
+    <% content_for :title do %>
+      Politique de Confidentialité - Always
+    <% end %>
 
-    <div class="section">
-        <h2>Collecte de Données</h2>
-        <p>Nous collectons les données suivantes :</p>
-        <ul>
-            <li>Données d'utilisation anonymes pour améliorer notre extension</li>
-            <li>Informations sur les pages que vous visitez lors de la création de guides</li>
-            <li>Actions que vous effectuez dans l'extension</li>
-            <li>Données de performance pour optimiser l'expérience utilisateur</li>
-        </ul>
-    </div>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Politique de Confidentialité - Always</h1>
+        
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Introduction</h2>
+            <p class="text-gray-600">Always est une extension Chrome conçue pour faciliter la création de guides interactifs. Nous nous engageons à protéger votre vie privée et à garantir la sécurité de vos données.</p>
+        </div>
 
-    <div class="section">
-        <h2>Utilisation des Données</h2>
-        <p>Les données collectées sont utilisées pour :</p>
-        <ul>
-            <li>Améliorer l'expérience utilisateur de l'extension</li>
-            <li>Effectuer des analyses internes pour optimiser les fonctionnalités</li>
-            <li>Résoudre les problèmes techniques</li>
-            <li>Envoyer des notifications importantes concernant l'extension</li>
-        </ul>
-    </div>
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Données Collectées</h2>
+            <p class="text-gray-600 mb-4">Nous collectons les types de données suivants :</p>
+            <ul class="space-y-4">
+                <li>
+                    <strong class="text-gray-800">Informations d'identification :</strong>
+                    <ul class="ml-6 mt-2 list-disc text-gray-600">
+                        <li>Nom d'utilisateur et informations de compte (si connecté)</li>
+                        <li>Adresse e-mail (si connecté)</li>
+                        <li>Identifiants de session locaux</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="text-gray-800">Données d'authentification :</strong>
+                    <ul class="ml-6 mt-2 list-disc text-gray-600">
+                        <li>Jetons de session pour l'association des captures d'écran</li>
+                        <li>Données d'identification locale</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="text-gray-800">Communications personnelles :</strong>
+                    <ul class="ml-6 mt-2 list-disc text-gray-600">
+                        <li>Messages saisis dans les formulaires (si capturés dans le guide)</li>
+                        <li>Contenu des champs de texte (sauf les mots de passe)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="text-gray-800">Activité utilisateur :</strong>
+                    <ul class="ml-6 mt-2 list-disc text-gray-600">
+                        <li>Clics et interactions avec l'interface</li>
+                        <li>Actions de capture d'écran</li>
+                        <li>Éléments sélectionnés et leurs propriétés</li>
+                        <li>Position de défilement</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="text-gray-800">Contenu du site web :</strong>
+                    <ul class="ml-6 mt-2 list-disc text-gray-600">
+                        <li>Texte sélectionné</li>
+                        <li>Éléments HTML capturés</li>
+                        <li>URLs des pages visitées</li>
+                        <li>Informations sur les éléments interactifs</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>Partage des Données</h2>
-        <p>Nous ne partageons pas vos données personnelles avec des tiers, sauf si :</p>
-        <ul>
-            <li>C'est requis par la loi</li>
-            <li>Vous avez donné votre consentement explicite</li>
-            <li>C'est nécessaire pour le bon fonctionnement de l'extension</li>
-        </ul>
-    </div>
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Données Non Collectées</h2>
+            <p class="text-gray-600 mb-4">Nous ne collectons PAS les types de données suivants :</p>
+            <ul class="ml-6 list-disc text-gray-600">
+                <li>Données de santé</li>
+                <li>Données financières</li>
+                <li>Données de localisation</li>
+                <li>Historique de navigation web complet</li>
+                <li>Mots de passe et données sensibles</li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>Sécurité des Données</h2>
-        <p>Nous prenons des mesures de sécurité appropriées pour protéger vos données :</p>
-        <ul>
-            <li>Cryptage des données en transit et au repos</li>
-            <li>Accès limité aux données personnelles</li>
-            <li>Surveillance régulière de la sécurité</li>
-            <li>Mises à jour de sécurité régulières</li>
-        </ul>
-    </div>
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Utilisation des Données</h2>
+            <p class="text-gray-600 mb-4">Les données collectées sont utilisées pour :</p>
+            <ul class="ml-6 list-disc text-gray-600">
+                <li>Créer et générer des guides interactifs</li>
+                <li>Associer les captures d'écran à votre compte</li>
+                <li>Améliorer l'expérience utilisateur de l'extension</li>
+                <li>Résoudre les problèmes techniques</li>
+                <li>Maintenir la sécurité de l'extension</li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>Droits des Utilisateurs</h2>
-        <p>Vous avez les droits suivants concernant vos données :</p>
-        <ul>
-            <li>Droit d'accès à vos données personnelles</li>
-            <li>Droit de rectification de vos données</li>
-            <li>Droit de suppression de vos données</li>
-            <li>Droit de limitation du traitement de vos données</li>
-            <li>Droit à la portabilité de vos données</li>
-        </ul>
-    </div>
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Stockage et Sécurité</h2>
+            <p class="text-gray-600 mb-4">Nous prenons des mesures de sécurité appropriées pour protéger vos données :</p>
+            <ul class="ml-6 list-disc text-gray-600">
+                <li>Stockage local sécurisé des données de session</li>
+                <li>Cryptage des données en transit</li>
+                <li>Protection contre les injections XSS</li>
+                <li>Accès limité aux données personnelles</li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>Modifications de la Politique</h2>
-        <p>Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment. Toute modification sera publiée sur cette page avec la date de mise à jour.</p>
-    </div>
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Vos Droits</h2>
+            <p class="text-gray-600 mb-4">Vous avez le droit de :</p>
+            <ul class="ml-6 list-disc text-gray-600">
+                <li>Accéder à vos données personnelles</li>
+                <li>Demander la suppression de vos données</li>
+                <li>Désactiver la collecte de données</li>
+                <li>Exporter vos données</li>
+            </ul>
+        </div>
 
-    <div class="section">
-        <h2>Contact</h2>
-        <p>Pour toute question concernant cette politique de confidentialité ou vos données personnelles, veuillez nous contacter à :</p>
-        <p>Email : privacy@hyperion-guide.com</p>
-    </div>
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Contact</h2>
+            <p class="text-gray-600">Pour toute question concernant cette politique de confidentialité ou vos données personnelles, veuillez nous contacter à :</p>
+            <p class="text-gray-600">Email : privacy@always.com</p>
+        </div>
 
-    <div class="last-updated">
-        Dernière mise à jour : <%= Time.current.strftime("%d/%m/%Y") %>
+        <div class="text-sm text-gray-500 italic mt-8">
+            Dernière mise à jour : <%= Time.current.strftime("%d/%m/%Y") %>
+        </div>
     </div>
 </body>
 </html> 

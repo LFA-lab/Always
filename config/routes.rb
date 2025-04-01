@@ -1,13 +1,20 @@
 Rails.application.routes.draw do
+  # Routes pour les pages statiques
+  get 'about', to: 'pages#about'
+  get 'contact', to: 'pages#contact'
+  get 'privacy', to: 'pages#privacy'
+  get 'terms', to: 'pages#terms'
+  get 'privacy-policy', to: 'pages#privacy_policy'
+
+  # Route racine
+  root 'pages#home'
+
   # Routes d'authentification Devise
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }
-
-  # Route racine
-  root 'pages#home'
 
   # Routes pour les dashboards
   get 'dashboard/manager', to: 'pages#dashboard_manager', as: :dashboard_manager
@@ -101,13 +108,6 @@ Rails.application.routes.draw do
   get 'manifest.json', to: 'pwa#manifest'
   get 'service-worker.js', to: 'pwa#service_worker'
   get 'offline.html', to: 'pwa#offline'
-
-  # Routes pour les pages statiques
-  get 'about', to: 'pages#about'
-  get 'contact', to: 'pages#contact'
-  get 'privacy', to: 'pages#privacy'
-  get 'terms', to: 'pages#terms'
-  get 'privacy-policy', to: 'pages#privacy_policy'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

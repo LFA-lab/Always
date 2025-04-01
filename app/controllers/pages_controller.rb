@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:about, :contact, :privacy, :terms, :privacy_policy, :home]
   before_action :check_role, only: [:dashboard_manager, :dashboard_user]
 
   def about
@@ -18,14 +18,16 @@ class PagesController < ApplicationController
   end
 
   def home
-    @total_hours_saved = GuideFeedback.sum(:time_saved)
-    @total_guides = Guide.published.count
-    @total_users = User.count
-    
-    # Récupérer les derniers feedbacks pour l'affichage
-    @latest_feedbacks = GuideFeedback.includes(:guide)
-                                   .order(created_at: :desc)
-                                   .limit(3)
+    if user_signed_in?
+      @total_hours_saved = GuideFeedback.sum(:time_saved)
+      @total_guides = Guide.published.count
+      @total_users = User.count
+      
+      # Récupérer les derniers feedbacks pour l'affichage
+      @latest_feedbacks = GuideFeedback.includes(:guide)
+                                     .order(created_at: :desc)
+                                     .limit(3)
+    end
   end
 
   def dashboard_manager
