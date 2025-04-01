@@ -1,4 +1,4 @@
-class CreateGuideFeedbacks < ActiveRecord::Migration[8.0]
+class CreateGuideFeedbacks < ActiveRecord::Migration[7.0]
   def change
     create_table :guide_feedbacks do |t|
       t.references :guide, null: false, foreign_key: true

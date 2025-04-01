@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddDeviseToUsers < ActiveRecord::Migration[8.0]
+class AddDeviseToUsers < ActiveRecord::Migration[7.0]
   def self.up
     change_table :users do |t|
       # Ajout de la colonne email uniquement si elle n'existe pas déjà

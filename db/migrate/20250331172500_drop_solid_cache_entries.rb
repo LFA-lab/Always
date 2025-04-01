@@ -1,4 +1,4 @@
-class DropSolidCacheEntries < ActiveRecord::Migration[8.0]
+class DropSolidCacheEntries < ActiveRecord::Migration[7.0]
   def up
     drop_table :solid_cache_entries if table_exists?(:solid_cache_entries)
   end

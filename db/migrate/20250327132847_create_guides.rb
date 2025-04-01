@@ -1,4 +1,4 @@
-class CreateGuides < ActiveRecord::Migration[8.0]
+class CreateGuides < ActiveRecord::Migration[7.0]
   def change
     create_table :guides do |t|
       t.string :title

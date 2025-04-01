@@ -1,4 +1,4 @@
-class CreateParcoursGuides < ActiveRecord::Migration[8.0]
+class CreateParcoursGuides < ActiveRecord::Migration[7.0]
   def change
     create_table :parcours_guides do |t|
       t.references :parcours, null: false, foreign_key: true
