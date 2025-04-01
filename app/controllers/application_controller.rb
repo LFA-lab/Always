@@ -12,10 +12,14 @@ class ApplicationController < ActionController::Base
   end
 
   def skip_authentication?
-    devise_controller? || public_page?
+    devise_controller? || public_page? || privacy_policy_page? || request.path == '/privacy-policy'
   end
 
   def public_page?
-    params[:controller] == 'pages' && ['about', 'contact', 'privacy', 'terms', 'privacy_policy', 'home'].include?(params[:action])
+    params[:controller] == 'pages' && ['about', 'contact', 'privacy', 'terms', 'home'].include?(params[:action])
+  end
+
+  def privacy_policy_page?
+    params[:controller] == 'pages' && params[:action] == 'privacy_policy'
   end
 end
