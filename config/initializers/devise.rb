@@ -20,6 +20,14 @@ Devise.setup do |config|
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
 
+  # Configure which pages should be publicly accessible
+  config.navigational_formats = ['*/*', :html, :turbo_stream]
+  config.skip_session_storage = [:http_auth]
+  config.warden do |manager|
+    manager.failure_app = Devise::FailureApp.new
+    manager.default_strategies(scope: :user).unshift :public_page
+  end
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class

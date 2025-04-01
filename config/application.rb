@@ -20,7 +20,15 @@ module Always
     #
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
-    #
+    config.api_only = false
+    config.i18n.default_locale = :fr
+    config.time_zone = 'Paris'
+    config.active_record.default_timezone = :local
+
+    # Charger automatiquement les fichiers du dossier lib
+    config.autoload_paths += %W(#{config.root}/app/lib)
+
+    # Configuration de la politique de sécurité du contenu
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
   end
