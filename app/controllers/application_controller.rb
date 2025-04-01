@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
   end
 
   def skip_authentication?
-    devise_controller? || public_page? || privacy_policy_page? || request.path == '/privacy-policy'
+    return true if devise_controller?
+    return true if public_page?
+    return true if privacy_policy_page?
+    return true if request.path == '/privacy-policy'
+    false
   end
 
   def public_page?
