@@ -1,4 +1,4 @@
-class Pages::PagesController < ApplicationController
+class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:about, :contact, :privacy, :terms, :privacy_policy, :home]
   before_action :check_role, only: [:dashboard_manager, :dashboard_user]
 
