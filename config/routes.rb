@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
-  # Routes pour les pages statiques
-  get 'about', to: 'pages#about'
-  get 'contact', to: 'pages#contact'
-  get 'privacy', to: 'pages#privacy'
-  get 'terms', to: 'pages#terms'
-  get 'privacy-policy', to: 'pages#privacy_policy'
-
-  # Route racine
-  root 'pages#home'
+  # Routes publiques
+  scope module: 'pages', as: 'public' do
+    get 'about', to: 'pages#about'
+    get 'contact', to: 'pages#contact'
+    get 'privacy', to: 'pages#privacy'
+    get 'terms', to: 'pages#terms'
+    get 'privacy-policy', to: 'pages#privacy_policy'
+    root to: 'pages#home'
+  end
 
   # Routes d'authentification Devise
   devise_for :users, controllers: {
@@ -16,70 +16,73 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
-  # Routes pour les dashboards
-  get 'dashboard/manager', to: 'pages#dashboard_manager', as: :dashboard_manager
-  get 'dashboard/user', to: 'pages#dashboard_user', as: :dashboard_user
+  # Routes protégées
+  authenticate :user do
+    # Routes pour les dashboards
+    get 'dashboard/manager', to: 'pages#dashboard_manager', as: :dashboard_manager
+    get 'dashboard/user', to: 'pages#dashboard_user', as: :dashboard_user
 
-  # Routes pour les guides et leurs ressources imbriquées
-  resources :guides do
-    member do
-      get 'preview'
-      get 'capture'
-      post 'publish'
-      post 'unpublish'
-    end
-
-    resources :steps, only: [:create, :update, :destroy] do
-      collection do
-        post 'reorder'
-      end
-    end
-
-    resources :quizzes, only: [:create, :update, :destroy] do
+    # Routes pour les guides et leurs ressources imbriquées
+    resources :guides do
       member do
-        post 'submit'
+        get 'preview'
+        get 'capture'
+        post 'publish'
+        post 'unpublish'
+      end
+
+      resources :steps, only: [:create, :update, :destroy] do
+        collection do
+          post 'reorder'
+        end
+      end
+
+      resources :quizzes, only: [:create, :update, :destroy] do
+        member do
+          post 'submit'
+        end
+      end
+
+      resources :guide_feedbacks, only: [:create, :update, :destroy]
+    end
+
+    # Routes pour les parcours
+    resources :parcours do
+      member do
+        post 'publish'
+        post 'unpublish'
+      end
+      resources :parcours_guides, only: [:create, :destroy] do
+        collection do
+          post 'reorder'
+        end
       end
     end
 
-    resources :guide_feedbacks, only: [:create, :update, :destroy]
-  end
-
-  # Routes pour les parcours
-  resources :parcours do
-    member do
-      post 'publish'
-      post 'unpublish'
-    end
-    resources :parcours_guides, only: [:create, :destroy] do
-      collection do
-        post 'reorder'
+    # Routes pour les demandes de prestation
+    resources :service_requests, only: [:index, :new, :create, :show, :update] do
+      member do
+        post 'accept'
+        post 'reject'
+        post 'complete'
       end
     end
-  end
 
-  # Routes pour les demandes de prestation
-  resources :service_requests, only: [:index, :new, :create, :show, :update] do
-    member do
-      post 'accept'
-      post 'reject'
-      post 'complete'
+    # Routes pour les entreprises
+    resources :enterprises, only: [:show, :edit, :update] do
+      member do
+        get 'dashboard'
+        get 'analytics'
+      end
     end
-  end
 
-  # Routes pour les entreprises
-  resources :enterprises, only: [:show, :edit, :update] do
-    member do
-      get 'dashboard'
-      get 'analytics'
-    end
-  end
-
-  # Routes pour les utilisateurs
-  resources :users, only: [:index, :show, :edit, :update] do
-    member do
-      get 'profile'
-      get 'guides'
-      get 'parcours'
+    # Routes pour les utilisateurs
+    resources :users, only: [:index, :show, :edit, :update] do
+      member do
+        get 'profile'
+        get 'guides'
+        get 'parcours'
+      end
     end
   end
 
@@ -109,10 +112,7 @@ Rails.application.routes.draw do
   get 'service-worker.js', to: 'pwa#service_worker'
   get 'offline.html', to: 'pwa#offline'
 
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
