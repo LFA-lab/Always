@@ -3,12 +3,16 @@ class ApplicationController < ActionController::Base
   # allow_browser versions: :modern
 
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user!, unless: :public_page?
+  before_action :authenticate_user!, unless: :skip_authentication?
 
   protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :service, :enterprise_id])
+  end
+
+  def skip_authentication?
+    devise_controller? || public_page?
   end
 
   def public_page?
