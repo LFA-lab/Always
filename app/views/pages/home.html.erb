@@ -65,19 +65,25 @@
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center mb-12">Ce qu'en disent nos utilisateurs</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <% @latest_feedbacks.each do |feedback| %>
-        <div class="bg-white p-6 rounded-lg shadow-sm">
-          <div class="flex items-center mb-4">
-            <div class="text-yellow-400">★</div>
-            <div class="text-yellow-400">★</div>
-            <div class="text-yellow-400">★</div>
-            <div class="text-yellow-400">★</div>
-            <div class="text-yellow-400">★</div>
+      <% if @latest_feedbacks.present? %>
+        <% @latest_feedbacks.each do |feedback| %>
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <div class="flex items-center mb-4">
+              <div class="text-yellow-400">★</div>
+              <div class="text-yellow-400">★</div>
+              <div class="text-yellow-400">★</div>
+              <div class="text-yellow-400">★</div>
+              <div class="text-yellow-400">★</div>
+            </div>
+            <p class="text-gray-600 mb-4"><%= feedback.comment %></p>
+            <p class="text-sm text-gray-500">
+              <%= feedback.guide.title %> - <%= feedback.time_saved %>h économisées
+            </p>
           </div>
-          <p class="text-gray-600 mb-4"><%= feedback.comment %></p>
-          <p class="text-sm text-gray-500">
-            <%= feedback.guide.title %> - <%= feedback.time_saved %>h économisées
-          </p>
+        <% end %>
+      <% else %>
+        <div class="col-span-3 text-center">
+          <p class="text-gray-600">Aucun retour utilisateur pour le moment.</p>
         </div>
       <% end %>
     </div>
