@@ -57,7 +57,7 @@ class EnterprisesController < ApplicationController
   end
 
   def enterprise_params
-    params.require(:enterprise).permit(:name, :address, :phone)
+    params.require(:enterprise).permit(:name, :address)
   end
 
   def ensure_manager
