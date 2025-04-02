@@ -3,17 +3,17 @@ current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/debug
 creating Makefile
 
 current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
-make DESTDIR\= sitearchdir\=./.gem.20250331-280619-3ht5pi sitelibdir\=./.gem.20250331-280619-3ht5pi clean
+make DESTDIR\= sitearchdir\=./.gem.20250402-377587-dg1isw sitelibdir\=./.gem.20250402-377587-dg1isw clean
 
 current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
-make DESTDIR\= sitearchdir\=./.gem.20250331-280619-3ht5pi sitelibdir\=./.gem.20250331-280619-3ht5pi
+make DESTDIR\= sitearchdir\=./.gem.20250402-377587-dg1isw sitelibdir\=./.gem.20250402-377587-dg1isw
 compiling debug.c
 compiling iseq_collector.c
 linking shared-object debug/debug.so
 
 current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
-make DESTDIR\= sitearchdir\=./.gem.20250331-280619-3ht5pi sitelibdir\=./.gem.20250331-280619-3ht5pi install
-/usr/bin/install -c -m 0755 debug.so ./.gem.20250331-280619-3ht5pi/debug
+make DESTDIR\= sitearchdir\=./.gem.20250402-377587-dg1isw sitelibdir\=./.gem.20250402-377587-dg1isw install
+/usr/bin/install -c -m 0755 debug.so ./.gem.20250402-377587-dg1isw/debug
 
 current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/debug-1.10.0/ext/debug
-make DESTDIR\= sitearchdir\=./.gem.20250331-280619-3ht5pi sitelibdir\=./.gem.20250331-280619-3ht5pi clean
+make DESTDIR\= sitearchdir\=./.gem.20250402-377587-dg1isw sitelibdir\=./.gem.20250402-377587-dg1isw clean

@@ -3,10 +3,10 @@ current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/webso
 creating Makefile
 
 current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.7/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20250331-280619-k54pn7 sitelibdir\=./.gem.20250331-280619-k54pn7 clean
+make DESTDIR\= sitearchdir\=./.gem.20250402-377587-zzjagu sitelibdir\=./.gem.20250402-377587-zzjagu clean
 
 current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.7/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20250331-280619-k54pn7 sitelibdir\=./.gem.20250331-280619-k54pn7
+make DESTDIR\= sitearchdir\=./.gem.20250402-377587-zzjagu sitelibdir\=./.gem.20250402-377587-zzjagu
 compiling websocket_mask.c
 websocket_mask.c: In function ‘Init_websocket_mask’:
 websocket_mask.c:26:6: warning: old-style function definition [-Wold-style-definition]
@@ -19,8 +19,8 @@ cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ 
 linking shared-object websocket_mask.so
 
 current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.7/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20250331-280619-k54pn7 sitelibdir\=./.gem.20250331-280619-k54pn7 install
-/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20250331-280619-k54pn7
+make DESTDIR\= sitearchdir\=./.gem.20250402-377587-zzjagu sitelibdir\=./.gem.20250402-377587-zzjagu install
+/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20250402-377587-zzjagu
 
 current directory: /home/ntoi/LFA-lab/Always/vendor/bundle/ruby/3.2.0/gems/websocket-driver-0.7.7/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20250331-280619-k54pn7 sitelibdir\=./.gem.20250331-280619-k54pn7 clean
+make DESTDIR\= sitearchdir\=./.gem.20250402-377587-zzjagu sitelibdir\=./.gem.20250402-377587-zzjagu clean
