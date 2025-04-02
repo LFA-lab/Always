@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_31_172500) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,7 +43,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
   end
 
   create_table "answers", force: :cascade do |t|
-    t.integer "question_id", null: false
+    t.bigint "question_id", null: false
     t.string "text"
     t.boolean "correct"
     t.datetime "created_at", null: false
@@ -56,8 +59,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
   end
 
   create_table "guide_feedbacks", force: :cascade do |t|
-    t.integer "guide_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "guide_id", null: false
+    t.bigint "user_id", null: false
     t.integer "stars"
     t.text "comment"
     t.datetime "created_at", null: false
@@ -72,8 +75,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
     t.text "description"
     t.integer "visibility"
     t.string "slug"
-    t.integer "owner_id", null: false
-    t.integer "enterprise_id", null: false
+    t.bigint "owner_id", null: false
+    t.bigint "enterprise_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["enterprise_id"], name: "index_guides_on_enterprise_id"
@@ -81,8 +84,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
   end
 
   create_table "interactions", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "guide_id"
+    t.bigint "user_id", null: false
+    t.bigint "guide_id"
     t.string "action_type", null: false
     t.string "element_type", null: false
     t.string "element_selector", null: false
@@ -99,19 +102,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
   end
 
   create_table "parcours", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.text "description"
+    t.bigint "enterprise_id", null: false
+    t.bigint "owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "owner_id", null: false
-    t.integer "enterprise_id", null: false
     t.index ["enterprise_id"], name: "index_parcours_on_enterprise_id"
     t.index ["owner_id"], name: "index_parcours_on_owner_id"
   end
 
   create_table "parcours_guides", force: :cascade do |t|
-    t.integer "parcours_id", null: false
-    t.integer "guide_id", null: false
+    t.bigint "parcours_id", null: false
+    t.bigint "guide_id", null: false
     t.integer "order_in_parcours"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -120,7 +123,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.integer "quiz_id", null: false
+    t.bigint "quiz_id", null: false
     t.text "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -128,14 +131,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
   end
 
   create_table "quizzes", force: :cascade do |t|
-    t.integer "guide_id", null: false
+    t.bigint "guide_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["guide_id"], name: "index_quizzes_on_guide_id"
   end
 
   create_table "service_requests", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.text "description"
     t.string "status"
     t.datetime "created_at", null: false
@@ -144,7 +147,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
   end
 
   create_table "steps", force: :cascade do |t|
-    t.integer "guide_id", null: false
+    t.bigint "guide_id", null: false
     t.integer "step_order"
     t.text "instruction_text"
     t.string "screenshot_url"
@@ -170,7 +173,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_155543) do
     t.string "email"
     t.string "encrypted_password"
     t.integer "role"
-    t.integer "enterprise_id", null: false
+    t.bigint "enterprise_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "reset_password_token"
