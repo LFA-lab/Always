@@ -1,115 +1,102 @@
-<% content_for :title do %>
-  Politique de Confidentialité - Always
-<% end %>
-
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-gray-900 mb-8">Politique de Confidentialité - Always</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Politique de Confidentialité - Always</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f6fa;
+      color: #2f3542;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1, h2 {
+      color: #4a90e2;
+    }
+    ul {
+      margin-left: 20px;
+    }
+    .last-update {
+      font-style: italic;
+      color: #666;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Politique de Confidentialité - Always</h1>
     
-    <div class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Introduction</h2>
-        <p class="text-gray-600">Always est une extension Chrome conçue pour faciliter la création de guides interactifs. Nous nous engageons à protéger votre vie privée et à garantir la sécurité de vos données.</p>
+    <section>
+      <h2>Introduction</h2>
+      <p>Always est une extension Chrome conçue pour faciliter la création de guides interactifs. Nous nous engageons à protéger votre vie privée et à garantir la sécurité de vos données. Cette politique de confidentialité explique quelles données nous collectons, comment nous les utilisons et les mesures prises pour les protéger.</p>
+    </section>
+    
+    <section>
+      <h2>Données Collectées</h2>
+      <p>Nous collectons uniquement les données nécessaires au fonctionnement de l'extension. Ces données incluent :</p>
+      <ul>
+        <li><strong>Informations d'identification :</strong> Nom d'utilisateur, adresse e-mail et identifiants de session, si l'utilisateur est connecté.</li>
+        <li><strong>Données d'authentification :</strong> Jetons de session pour associer les captures d'écran et les interactions aux comptes utilisateurs.</li>
+        <li><strong>Activité utilisateur :</strong> Clics, interactions avec l'interface, captures d'écran, position de défilement, et informations sur les éléments interactifs affichés sur la page.</li>
+        <li><strong>Contenu du site Web :</strong> Texte sélectionné, éléments HTML, URL des pages visitées, et autres informations pertinentes pour générer des guides précis.</li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>Données Non Collectées</h2>
+      <p>Nous ne collectons pas les types de données suivants :</p>
+      <ul>
+        <li>Données de santé</li>
+        <li>Données financières ou de paiement</li>
+        <li>Données de localisation précise</li>
+        <li>Historique complet de navigation web</li>
+        <li>Mots de passe ou données sensibles</li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>Utilisation des Données</h2>
+      <p>Les données collectées sont utilisées pour :</p>
+      <ul>
+        <li>Créer et générer des guides interactifs basés sur les actions de l'utilisateur.</li>
+        <li>Assurer une expérience utilisateur personnalisée (en enregistrant les préférences et paramètres locaux).</li>
+        <li>Améliorer la qualité et la précision des guides en analysant les interactions et en capturant des captures d'écran.</li>
+        <li>Résoudre les problèmes techniques et maintenir la sécurité de l'extension.</li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>Stockage et Sécurité</h2>
+      <p>Nous prenons des mesures de sécurité appropriées pour protéger vos données :</p>
+      <ul>
+        <li>Stockage local sécurisé des informations de session.</li>
+        <li>Cryptage des données en transit via HTTPS.</li>
+        <li>Accès limité aux données personnelles uniquement aux besoins fonctionnels de l'extension.</li>
+      </ul>
+    </section>
+    
+    <section>
+      <h2>Vos Droits</h2>
+      <p>Vous avez le droit d’accéder à vos données personnelles, de demander leur suppression ou de désactiver leur collecte. Pour toute demande relative à vos données, veuillez nous contacter à <a href="mailto:privacy@always.com">privacy@always.com</a>.</p>
+    </section>
+    
+    <section>
+      <h2>Contact</h2>
+      <p>Pour toute question concernant cette politique de confidentialité ou vos données personnelles, veuillez nous contacter à l’adresse suivante :</p>
+      <p>Email : <a href="mailto:privacy@always.com">privacy@always.com</a></p>
+    </section>
+    
+    <div class="last-update">
+      Dernière mise à jour : <span id="lastUpdate"><script>document.write(new Date().toLocaleDateString());</script></span>
     </div>
-
-    <div class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Données Collectées</h2>
-        <p class="text-gray-600 mb-4">Nous collectons les types de données suivants :</p>
-        <ul class="space-y-4">
-            <li>
-                <strong class="text-gray-800">Informations d'identification :</strong>
-                <ul class="ml-6 mt-2 list-disc text-gray-600">
-                    <li>Nom d'utilisateur et informations de compte (si connecté)</li>
-                    <li>Adresse e-mail (si connecté)</li>
-                    <li>Identifiants de session locaux</li>
-                </ul>
-            </li>
-            <li>
-                <strong class="text-gray-800">Données d'authentification :</strong>
-                <ul class="ml-6 mt-2 list-disc text-gray-600">
-                    <li>Jetons de session pour l'association des captures d'écran</li>
-                    <li>Données d'identification locale</li>
-                </ul>
-            </li>
-            <li>
-                <strong class="text-gray-800">Communications personnelles :</strong>
-                <ul class="ml-6 mt-2 list-disc text-gray-600">
-                    <li>Messages saisis dans les formulaires (si capturés dans le guide)</li>
-                    <li>Contenu des champs de texte (sauf les mots de passe)</li>
-                </ul>
-            </li>
-            <li>
-                <strong class="text-gray-800">Activité utilisateur :</strong>
-                <ul class="ml-6 mt-2 list-disc text-gray-600">
-                    <li>Clics et interactions avec l'interface</li>
-                    <li>Actions de capture d'écran</li>
-                    <li>Éléments sélectionnés et leurs propriétés</li>
-                    <li>Position de défilement</li>
-                </ul>
-            </li>
-            <li>
-                <strong class="text-gray-800">Contenu du site web :</strong>
-                <ul class="ml-6 mt-2 list-disc text-gray-600">
-                    <li>Texte sélectionné</li>
-                    <li>Éléments HTML capturés</li>
-                    <li>URLs des pages visitées</li>
-                    <li>Informations sur les éléments interactifs</li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-
-    <div class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Données Non Collectées</h2>
-        <p class="text-gray-600 mb-4">Nous ne collectons PAS les types de données suivants :</p>
-        <ul class="ml-6 list-disc text-gray-600">
-            <li>Données de santé</li>
-            <li>Données financières</li>
-            <li>Données de localisation</li>
-            <li>Historique de navigation web complet</li>
-            <li>Mots de passe et données sensibles</li>
-        </ul>
-    </div>
-
-    <div class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Utilisation des Données</h2>
-        <p class="text-gray-600 mb-4">Les données collectées sont utilisées pour :</p>
-        <ul class="ml-6 list-disc text-gray-600">
-            <li>Créer et générer des guides interactifs</li>
-            <li>Associer les captures d'écran à votre compte</li>
-            <li>Améliorer l'expérience utilisateur de l'extension</li>
-            <li>Résoudre les problèmes techniques</li>
-            <li>Maintenir la sécurité de l'extension</li>
-        </ul>
-    </div>
-
-    <div class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Stockage et Sécurité</h2>
-        <p class="text-gray-600 mb-4">Nous prenons des mesures de sécurité appropriées pour protéger vos données :</p>
-        <ul class="ml-6 list-disc text-gray-600">
-            <li>Stockage local sécurisé des données de session</li>
-            <li>Cryptage des données en transit</li>
-            <li>Protection contre les injections XSS</li>
-            <li>Accès limité aux données personnelles</li>
-        </ul>
-    </div>
-
-    <div class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Vos Droits</h2>
-        <p class="text-gray-600 mb-4">Vous avez le droit de :</p>
-        <ul class="ml-6 list-disc text-gray-600">
-            <li>Accéder à vos données personnelles</li>
-            <li>Demander la suppression de vos données</li>
-            <li>Désactiver la collecte de données</li>
-            <li>Exporter vos données</li>
-        </ul>
-    </div>
-
-    <div class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Contact</h2>
-        <p class="text-gray-600">Pour toute question concernant cette politique de confidentialité ou vos données personnelles, veuillez nous contacter à :</p>
-        <p class="text-gray-600">Email : privacy@always.com</p>
-    </div>
-
-    <div class="text-sm text-gray-500 italic mt-8">
-        Dernière mise à jour : <%= Time.current.strftime("%d/%m/%Y") %>
-    </div>
-</div> 
+  </div>
+</body>
+</html>
