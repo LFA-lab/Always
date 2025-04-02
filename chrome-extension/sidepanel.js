@@ -132,99 +132,44 @@ function togglePause() {
 
 // Sauvegarder le guide
 async function saveGuide() {
-    console.log('💾 Début de la sauvegarde du guide...');
-    
+    console.log('💾 Démarrage de la sauvegarde du guide...');
+    isSaving = true;
+
     try {
-        isSaving = true;
-        console.log('📝 Préparation des données du guide...');
-        
-        // Arrêter la capture si elle est en cours
-        if (isRecording) {
-            console.log('⏹️ Arrêt automatique de la capture avant sauvegarde...');
-            chrome.runtime.sendMessage({ type: 'STOP_RECORDING' });
-            isRecording = false;
-            isPaused = false;
-            updateButtonStates();
-        }
-        
         // Préparer les données du guide
         const guideData = {
-            guide: {
-                title: `Guide capturé le ${new Date().toLocaleString()}`,
-                description: "Guide créé via l'extension Chrome",
-                visibility: "private_guide",
-                url: window.location.href,
-                browser_info: navigator.userAgent,
-                device_info: `${navigator.platform} - ${navigator.language}`
-            },
-            steps: steps.map((step, index) => ({
-                description: step.description || '',
-                type: step.type || 'click',
-                element_selector: step.element_selector || '',
-                element_type: step.element_type || '',
-                element_text: step.element_text || '',
-                coordinates: step.coordinates || { x: 0, y: 0 },
-                scroll_position: step.scroll_position || 0,
-                timestamp: step.timestamp || new Date().toISOString(),
-                order: index + 1
-            }))
+            title: document.getElementById('guideTitle').value || 'Guide sans titre',
+            content: steps.map(step => step.description).join('\n\n'),
+            url: window.location.href,
+            screenshots: steps.map(step => step.screenshot)
         };
-        
-        console.log('📤 Envoi des données au serveur:', guideData);
-        
-        // Envoyer les données au serveur
-        const response = await fetch(`${API_URL}/interactions`, {
+
+        // Envoyer au backend via l'API
+        const response = await fetch('https://always-mvp.herokuapp.com/api/guides', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
             },
-            credentials: 'include',
-            body: JSON.stringify(guideData)
+            body: JSON.stringify({ guide: guideData }),
         });
-        
-        console.log('📥 Réponse du serveur:', response.status, response.statusText);
-        
+
         if (!response.ok) {
-            const errorText = await response.text();
-            console.error('❌ Erreur serveur:', errorText);
-            throw new Error(`Erreur HTTP: ${response.status} - ${errorText}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const result = await response.json();
         console.log('✅ Guide sauvegardé avec succès:', result);
         
-        // Ouvrir l'éditeur dans un nouvel onglet
-        const editorUrl = `${API_URL.replace('/api/v1', '')}/guides/${result.guide.id}/edit`;
-        console.log('🔗 Ouverture de l\'éditeur:', editorUrl);
-        
-        // Utiliser chrome.tabs.create de manière synchrone
-        chrome.tabs.create({ url: editorUrl }, (tab) => {
-            if (chrome.runtime.lastError) {
-                console.error('❌ Erreur lors de l\'ouverture de l\'onglet:', chrome.runtime.lastError);
-                throw chrome.runtime.lastError;
-            }
-            console.log('✅ Nouvel onglet ouvert avec succès:', tab.id);
-        });
-        
-        showNotification('Guide sauvegardé avec succès');
-        
-        // Fermer le panneau latéral après un court délai
-        setTimeout(() => {
-            console.log('👋 Fermeture du panneau latéral...');
-            window.close();
-        }, 1000);
+        // Réinitialiser l'interface
+        clearSteps();
+        showNotification('Guide sauvegardé avec succès !', false);
         
     } catch (error) {
         console.error('❌ Erreur lors de la sauvegarde:', error);
-        showNotification(`Erreur lors de la sauvegarde: ${error.message}`, true);
         throw error;
     } finally {
         isSaving = false;
-        if (saveButton) {
-            saveButton.disabled = false;
-            saveButton.innerHTML = '<span class="icon">💾</span> Sauvegarder le Guide';
-        }
+        updateSaveButtonState(false);
     }
 }
 

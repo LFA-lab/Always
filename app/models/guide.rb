@@ -10,9 +10,13 @@ class Guide < ApplicationRecord
   has_many :parcours_guides, dependent: :destroy
   has_many :parcours, through: :parcours_guides
 
+  has_many_attached :screenshots
+
   validates :title, presence: true
   validates :owner, presence: true
   validates :enterprise, presence: true, if: -> { owner.manager? }
+  validates :content, presence: true
+  validates :url, presence: true, format: { with: URI::regexp(%w[http https]) }
 
   # Scope pour les guides publiés
   scope :published, -> { where(visibility: :public_guide) }

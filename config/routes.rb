@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # Routes API
+  namespace :api do
+    resources :guides, only: [:index, :show, :create, :update, :destroy]
+  end
+
   # Routes publiques
   get 'about', to: 'pages#about'
   get 'contact', to: 'pages#contact'
