@@ -24,7 +24,8 @@ Devise.setup do |config|
   config.navigational_formats = ['*/*', :html, :turbo_stream]
   config.skip_session_storage = [:http_auth]
   config.warden do |manager|
-    # manager.failure_app = Devise::FailureApp.new
+    require Rails.root.join("lib/custom_failure")
+    manager.failure_app = CustomFailureApp
     manager.default_strategies(scope: :user).unshift :public_page
   end
 
