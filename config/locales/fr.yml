@@ -1,2 +1,13 @@
 fr:
   hello: "Bonjour"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "Cet email est déjà utilisé"
+  errors:
+    messages:
+      not_saved: "Impossible d'enregistrer %{resource} : %{count} erreur(s)."
+      taken: "a déjà été pris"
